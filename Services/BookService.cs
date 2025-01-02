@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using WebApi_GenericRepository.DMO;
 
 public class BookService : IBookService
@@ -18,10 +19,28 @@ public class BookService : IBookService
     {
         return _unitOfWork.Book.GetAll().Result.ToList();
     }
+    public async Task<int> AddBook(Kitap kitap)
+    {
+        _unitOfWork.Book.Add(kitap);
+        return await _unitOfWork.SaveChange();
+    }
+    public async Task<IEnumerable<Kitap>> Find(Kitap kitap)
+    {
+
+        // Generic repository find adımında benden expressin istiyor
+        // parametre olarak gelen kitap adı değerini expression haline getirelim!!
+
+        Expression<Func<Kitap, bool>> filter = s => s.Ad == kitap.Ad;
+        return await _unitOfWork.Book.Find(filter);
+    }
 
 }
 public interface IBookService
 {
 
     public List<Kitap> Get();
+
+    public Task<int> AddBook(Kitap kitap);
+
+    public Task<IEnumerable<Kitap>> Find(Kitap kitap);
 }

@@ -26,6 +26,10 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(BookContext context)
     {
         _context = context;
+
+        // nesneyi oluşturalım!!
+        Author=new GenericRepository<Yazar>(_context);
+        Book=new GenericRepository<Kitap>(_context);
     }
     public async Task<int> SaveChange()
     {
@@ -35,7 +39,7 @@ public class UnitOfWork : IUnitOfWork
 
     public void Dispose()
     {
-        // bellekten düşmesi için!!
+        // bellekten düşmesi
         _context.Dispose();
     }
 }

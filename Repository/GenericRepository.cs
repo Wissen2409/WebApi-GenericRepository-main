@@ -14,11 +14,11 @@ public interface IGenericRepository<T>where T:class
     // gönderilen expression'a göre istenilen veriler getirilir!!
     Task<IEnumerable<T>> Find(Expression<Func<T,bool>> predicate);
 
-    Task Add(T entity);
+    void Add(T entity);
 
-    bool Update(T entity);
+    void Update(T entity);
 
-    bool Delete(T entity);
+    void Delete(T entity);
 
 }
 
@@ -32,17 +32,17 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         _context=context;
         _dbSet=_context.Set<T>();
     }
-    public async Task Add(T entity)
+    public void Add(T entity)
     {
         _dbSet.AddAsync(entity);
-        await _context.SaveChangesAsync();
-     
+        
     }
-    public bool Delete(T entity)
+    public void Delete(T entity)
     {
         _dbSet.Remove(entity);
-       int returnValue =  _context.SaveChanges();
-       return returnValue>=1;
+
+        // save change kısımlarını unit work içerisinde yaparız!
+     
     }
     public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
     {
@@ -56,11 +56,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         return await _dbSet.FindAsync(id);
     }
-    public bool Update(T entity)
+    public void Update(T entity)
     {
         _dbSet.Update(entity);
-       int result =  _context.SaveChanges();
-       return result>=1;
+     
     }
 
   

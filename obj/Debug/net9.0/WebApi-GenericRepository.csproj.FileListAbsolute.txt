@@ -307,3 +307,4 @@
 /Users/emrahelis/Downloads/WebApi-GenericRepository-main/obj/Debug/net9.0/WebApi-GenericRepository.pdb
 /Users/emrahelis/Downloads/WebApi-GenericRepository-main/obj/Debug/net9.0/WebApi-GenericRepository.genruntimeconfig.cache
 /Users/emrahelis/Downloads/WebApi-GenericRepository-main/obj/Debug/net9.0/ref/WebApi-GenericRepository.dll
+/Users/emrahelis/Downloads/WebApi-GenericRepository-main/obj/Debug/net9.0/WebApi-GenericRepository.sourcelink.json

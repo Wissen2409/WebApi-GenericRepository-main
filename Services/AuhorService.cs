@@ -16,5 +16,6 @@ public class AuthorService : IAuthorService
     public List<Yazar> Get()
     {
         return _unitOfWork.Author.GetAll().Result.ToList();
+        _unitOfWork.SaveChange();
     }
 }
